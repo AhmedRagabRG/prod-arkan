@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  fullName  String
+  hashedRt  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Specialization {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  img       String?
+  content   String?
+  doctor    Doctor[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("specializations")
+}
+
+model Doctor {
+  id               Int            @id @default(autoincrement())
+  name             String
+  img              String
+  specializationId Int
+  days             String       @default("[\"السبت\",\"الاحد\",\"الاثنين\",\"الثلاثاء\",\"الاربعاء\",\"الخميس\",\"الجمعة\"]")
+  specialization   Specialization @relation(fields: [specializationId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  @@map("doctors")
+}
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  title     String   @unique
+  content   String?
+  img       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("services")
+}
+
+model Appointment {
+  id          Int      @id @default(autoincrement())
+  name        String
+  phoneNumber String
+  service     String
+  date        DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("appointments")
+}
+
+model Section {
+  id        Int       @id @default(autoincrement())
+  name      String
+  content   String?
+  img       String?
+  parent    Section?  @relation("SectionChildren", fields: [sectionId], references: [id])
+  sectionId Int?
+  children  Section[] @relation("SectionChildren")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("sections")
+}
