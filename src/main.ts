@@ -16,7 +16,8 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'https://arkaneyecenter.com',
-      'https://197.161.91.10',
+      'https://www.arkaneyecenter.com',
+      'http://arkaneyecenter.com',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,

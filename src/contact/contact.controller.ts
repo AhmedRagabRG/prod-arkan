@@ -8,6 +8,7 @@ export class ContactController {
 
   @Post()
   create(@Body() createContactDto: CreateContactDto) {
+    console.log('==')
     return this.contactService.create(createContactDto);
   }
 }

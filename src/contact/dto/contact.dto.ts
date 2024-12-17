@@ -12,7 +12,4 @@ export class CreateContactDto {
     @IsString()
     @IsNotEmpty()
     message: string;
-
-    @IsNotEmpty()
-    date: Date;
 }

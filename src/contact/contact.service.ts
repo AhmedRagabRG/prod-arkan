@@ -12,6 +12,7 @@ export class ContactService {
 
     async create(data) {
         try {
+            console.log('=1')
             await this.sendDiscordEmbed(
                 'تواصل معنا',
                 `
@@ -22,6 +23,7 @@ export class ContactService {
                 { text: 'Arkan Eye Center' },
                 '1316657483011330138',
             );
+            console.log('=2')
 
             await this.userMailerService.sendMail(
                 data.message,

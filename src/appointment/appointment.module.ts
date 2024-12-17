@@ -5,13 +5,13 @@ import { SpecializationService } from 'src/specialization/specialization.service
 import { DoctorService } from 'src/doctor/doctor.service';
 import { DiscordModule } from '@discord-nestjs/core';
 import { GatewayIntentBits, Partials } from 'discord.js';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     DiscordModule.forRootAsync({
-      useFactory: () => ({
-        token:
-          'MTMxMzkxMzgzNzA4MjI1MTQwNQ.GU5_LF.ErB84A-36wzdaS7rlI59mst8pNRU73hJPLJusU',
+      useFactory: (configService: ConfigService) => ({
+        token: configService.get('DISCORD_BOT_TOKEN'),
         discordClientOptions: {
           intents: [
             GatewayIntentBits.Guilds,
@@ -20,6 +20,7 @@ import { GatewayIntentBits, Partials } from 'discord.js';
           partials: [Partials.Channel],
         },
       }),
+      inject: [ConfigService]
     }),
     DiscordModule,
   ],
