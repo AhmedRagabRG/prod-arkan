@@ -42,8 +42,9 @@ model Doctor {
   id               Int            @id @default(autoincrement())
   name             String
   img              String
+  content          String?
   specializationId Int
-  days             String       @default("[\"السبت\",\"الاحد\",\"الاثنين\",\"الثلاثاء\",\"الاربعاء\",\"الخميس\",\"الجمعة\"]")
+  days             String         @default("[\"السبت\",\"الاحد\",\"الاثنين\",\"الثلاثاء\",\"الاربعاء\",\"الخميس\",\"الجمعة\"]")
   specialization   Specialization @relation(fields: [specializationId], references: [id])
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt

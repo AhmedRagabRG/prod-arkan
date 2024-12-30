@@ -17,7 +17,7 @@ async function bootstrap() {
     origin: [
       'https://arkaneyecenter.com',
       'https://www.arkaneyecenter.com',
-      'http://arkaneyecenter.com',
+      'http://localhost:4200',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,

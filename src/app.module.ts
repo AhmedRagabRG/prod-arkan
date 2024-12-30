@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import configuration from './config/configuration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -12,6 +12,8 @@ import { DiscordModule } from '@discord-nestjs/core';
 import { ContactModule } from './contact/contact.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './auth/auth.module';
+import { IpCheckMiddleware } from './ip-check/ip-check.middleware';
 
 @Module({
   imports: [
@@ -59,8 +61,15 @@ import { ThrottlerModule } from '@nestjs/throttler';
     AppointmentModule,
     SectionModule,
     ContactModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule { 
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(IpCheckMiddleware)
+      .forRoutes({ path: 'admin', method: RequestMethod.ALL });
+  }
+}

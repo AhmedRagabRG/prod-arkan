@@ -4,6 +4,9 @@ export class CreateDoctorDto {
     @IsNotEmpty()
     @IsString()
     name: string;
+
+    @IsString()
+    content: string;
     
     @IsNotEmpty()
     @IsString()

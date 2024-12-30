@@ -23,7 +23,8 @@ export class DoctorService {
           name: createDoctorDto.name,
           img: createDoctorDto.img,
           specializationId: specialization.id,
-          days: createDoctorDto.days
+          days: createDoctorDto.days,
+          content: createDoctorDto.content,
         },
       });
       return doctor;

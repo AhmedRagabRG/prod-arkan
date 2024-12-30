@@ -16,6 +16,7 @@ export class SpecializationService {
         data: {
           name: createSpecializationDto.name,
           img: createSpecializationDto.img,
+          content: createSpecializationDto.content,
         },
       });
 
@@ -80,10 +81,10 @@ export class SpecializationService {
           id: id,
         },
       });
-      if (!specialization) throw new Error('Error removing doctor');
+      if (!specialization) throw new Error('Error removing specialization');
       return specialization;
     } catch (error) {
-      console.error(error.message);
+      console.log(error.message);
     }
   }
 }

@@ -7,8 +7,22 @@ import { DatabaseService } from 'src/database/database.service';
 export class SectionService {
   constructor(private readonly databaseService: DatabaseService) { }
 
-  create(createSectionDto: CreateSectionDto) {
-    return 'This action adds a new section';
+  async create(createSectionDto: CreateSectionDto) {
+    try {
+      if (!createSectionDto) throw new Error('No data provided');
+      const section = await this.databaseService.section.create({
+        data: {
+          name: createSectionDto.name,
+          img: createSectionDto.img,
+          content: createSectionDto.content,
+          sectionId: createSectionDto.sectionId
+        },
+      });
+      return section;
+    } catch (error) {
+      console.error(error.message);
+      return [];
+    }
   }
 
   async findAll() {
